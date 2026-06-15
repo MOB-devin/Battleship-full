@@ -4,6 +4,7 @@ import Game from '../factories/game'
 import Component from './reusableComponents'
 import Message from '../utils/message'
 import Sound from '../utils/sound'
+import delay from '../utils/delay'
 
 const Battle = (() => {
   // MAIN CALLER
@@ -187,15 +188,14 @@ const Battle = (() => {
     const shipName = getShipNameFromBoard(boardElement)
     const battleship = cpu.getMap().getShip(shipName)
 
-    console.log(cpu.getMap().getBoard())
     unInitBoardFields()
     await shotOnTurnPlay('player')
 
     if (boardElement === 'x') await playerMiss(fieldNode)
-    else return await playerHit(fieldNode)
+    else return playerHit(fieldNode)
 
     displayPlayerMessage(boardElement, battleship)
-    await timeoutOneSecond()
+    await delay(1000)
     await turnEnd('player')
 
     return 'miss'
@@ -209,15 +209,13 @@ const Battle = (() => {
     const shipName = getShipNameFromBoard(boardElement)
     const battleship = player.getMap().getShip(shipName)
 
-    console.log(row, col)
-
     await shotOnTurnPlay('cpu')
 
     if (boardElement === 'miss') await cpuMiss(row, col)
-    else return await cpuHit(row, col)
+    else return cpuHit(row, col)
 
     displayEnemyMessage(boardElement, battleship)
-    await timeoutOneSecond()
+    await delay(1000)
     await turnEnd('cpu')
 
     return 'miss'
@@ -228,18 +226,18 @@ const Battle = (() => {
   async function shotOnTurnPlay(playerOrCpu) {
     if (playerOrCpu === 'player') {
       Sound.shot()
-      await timeoutHalfSecond()
+      await delay(500)
     } else {
       displayPlayerNoCommentMessage()
-      await timeoutOneSecond()
+      await delay(1000)
       Sound.shot()
-      await timeoutHalfSecond()
+      await delay(500)
     }
   }
 
   async function playerMiss(fieldNode) {
     addMissStyle(fieldNode)
-    await timeoutMissileLength()
+    await delay(300)
     Sound.miss()
   }
 
@@ -250,7 +248,7 @@ const Battle = (() => {
 
     addMissStyle(friendlyBoard.children[index])
     player.getMap().getBoard()[row][col] = 'miss'
-    await timeoutMissileLength()
+    await delay(300)
     Sound.miss()
   }
 
@@ -265,11 +263,11 @@ const Battle = (() => {
 
     addHitStyle(fieldNode)
     loadShipIfSunk({ cpu, battleship, row, col })
-    await timeoutMissileLength()
+    await delay(300)
     Sound.hit()
     displayPlayerMessage(boardElement, battleship)
 
-    await timeoutOneSecond()
+    await delay(1000)
     if (cpu.isLoser()) return showPlayerWinModal()
     initBoardFields()
 
@@ -287,7 +285,7 @@ const Battle = (() => {
 
     addHitStyle(friendlyBoard.children[index])
     player.getMap().getBoard()[row][col] = 'hit'
-    await timeoutMissileLength()
+    await delay(300)
     Sound.hit()
     displayEnemyMessage(boardElement, battleship)
     if (player.isLoser()) return showEnemyWinModal()
@@ -296,7 +294,7 @@ const Battle = (() => {
   }
 
   async function turnEnd(playerOrCpu) {
-    await timeoutOneAndHalfSecond()
+    await delay(1500)
 
     if (playerOrCpu === 'player') {
       styleOffTurn(document.querySelector('.message.battle.agent'))
@@ -324,7 +322,7 @@ const Battle = (() => {
     const boardArray = map.getBoard()
 
     map.receiveAttack([data.row, data.col])
-    if (data.battleship.isSunk) {
+    if (data.battleship.getSunk()) {
       const element = boardArray[data.row][data.col]
       const [row, col] = findOrigin(boardArray, boardArray[data.row][data.col])
       fleet.loadShipOnBoard(data.cpu, { map, board, element, row, col })
@@ -362,9 +360,9 @@ const Battle = (() => {
     const enemy = document.getElementById('message-enemy')
 
     if (boardElement !== 'x') {
-      if (ship && !ship.isSunk)
+      if (ship && !ship.getSunk())
         displayMessage(agent, Message.getNewEnemyHitMessage(agent.textContent))
-      else if (ship.isSunk)
+      else if (ship.getSunk())
         displayMessage(agent, Message.getNewEnemySunkMessage(agent.textContent))
     } else {
       displayMessage(agent, Message.getNewPlayerMissMessage(agent.textContent))
@@ -378,9 +376,9 @@ const Battle = (() => {
     const enemy = document.getElementById('message-enemy')
 
     if (boardElement !== 'x' && boardElement !== 'miss') {
-      if (ship && !ship.isSunk)
+      if (ship && !ship.getSunk())
         displayMessage(enemy, Message.getNewPlayerHitMessage(enemy.textContent))
-      else if (ship.isSunk)
+      else if (ship.getSunk())
         displayMessage(
           enemy,
           Message.getNewPlayerSunkMessage(enemy.textContent)
@@ -405,7 +403,6 @@ const Battle = (() => {
   }
 
   function displayMessage(node, message) {
-    // REMOVE PREVIOUS TYPEWRITER
     clearTypeWriter(node)
 
     Component.addTypeWriterMessage(node, [message])
@@ -464,24 +461,6 @@ const Battle = (() => {
   function styleOffTurn(node) {
     node.classList.remove('on-turn')
     node.classList.add('off-turn')
-  }
-
-  // TIMEOUTS
-
-  function timeoutOneAndHalfSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 1500))
-  }
-
-  function timeoutOneSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 1000))
-  }
-
-  function timeoutHalfSecond() {
-    return new Promise((resolve) => setTimeout(resolve, 500))
-  }
-
-  function timeoutMissileLength() {
-    return new Promise((resolve) => setTimeout(resolve, 300))
   }
 
   return { loadBattleContent }

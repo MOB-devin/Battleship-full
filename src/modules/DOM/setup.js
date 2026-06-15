@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-expressions */
 import helper from './helper'
-// FACTORIES
 import Game from '../factories/game'
-// DOM
 import Battle from './battle'
 import Component from './reusableComponents'
 import Message from '../utils/message'
 import DragDrop from './dragDrop'
+import { FLEET_ORDER } from '../utils/shipConfig'
 
 const setup = (() => {
   function loadSetupContent() {
@@ -87,9 +86,7 @@ const setup = (() => {
       className: 'fleet-setup',
     })
 
-    const fleet = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer']
-
-    fleet.forEach((ship) => {
+    FLEET_ORDER.forEach((ship) => {
       const shipCard = Component.createShipCard(ship)
       section.appendChild(shipCard)
     })

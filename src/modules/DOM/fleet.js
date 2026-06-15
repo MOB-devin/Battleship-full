@@ -1,15 +1,9 @@
-// ASSETS
+import { loadShipImage } from '../utils/shipImages'
 import carrier from '../../assets/images/carrierX.svg'
-import battleship from '../../assets/images/battleshipX.svg'
-import cruiser from '../../assets/images/cruiserX.svg'
-import submarine from '../../assets/images/submarineX.svg'
-import destroyer from '../../assets/images/destroyerX.svg'
-// FACTORIES
 import Game from '../factories/game'
 import helper from './helper'
 
 const fleet = (() => {
-  // USED FOR SYNCING SHIP RADAR BEEP ANIMATION
   let startTime = null
 
   function loadFleet(board) {
@@ -19,7 +13,6 @@ const fleet = (() => {
 
     for (let row = 0; row < boardArray.length; row += 1) {
       for (let col = 0; col < boardArray[0].length; col += 1) {
-        // IF FIELD IS NOT EMPTY ON MAP LOAD SHIP
         if (boardArray[row][col] !== 'x') {
           const element = boardArray[row][col]
           loadShipOnBoard(player, { map, board, element, row, col })
@@ -32,14 +25,14 @@ const fleet = (() => {
     if (startTime === null) {
       startTime = new Date().getTime()
     }
-    return (new Date().getTime() - startTime) / 1000 // convert to seconds
+    return (new Date().getTime() - startTime) / 1000
   }
 
   function loadShipOnBoard(player, data) {
     const shipName = data.element.slice(0, -1)
     const ship = player.getMap().getShip(shipName)
 
-    if (ship.isFound) return
+    if (ship.getFound()) return
     ship.found()
 
     const length = ship.getLength()
@@ -70,8 +63,7 @@ const fleet = (() => {
     container.style.animationDelay = `${-currentTime}s`
 
     const image = helper.create('img', {
-      className:
-        player.isCpu === true ? `${shipName}-cpu` : `${shipName}-player`,
+      className: `${shipName}-${player.getIdentity()}`,
     })
     image.src = loadShipImage(shipName)
     image.style.height = '95%'
@@ -79,31 +71,6 @@ const fleet = (() => {
 
     container.appendChild(image)
     data.board.appendChild(container)
-  }
-
-  // THIS IS FOR WEBPACK IMAGE LOADING
-  function loadShipImage(shipName) {
-    let shipImage
-    switch (shipName) {
-      case 'carrier':
-        shipImage = carrier
-        break
-      case 'battleship':
-        shipImage = battleship
-        break
-      case 'cruiser':
-        shipImage = cruiser
-        break
-      case 'submarine':
-        shipImage = submarine
-        break
-      case 'destroyer':
-        shipImage = destroyer
-        break
-      default:
-        shipImage = ''
-    }
-    return shipImage
   }
 
   return { loadFleet, loadShipOnBoard }

@@ -1,5 +1,6 @@
 import Gameboard from './gameboard'
 import Ship from './ship'
+import { FLEET_ORDER, SHIP_CONFIG } from '../utils/shipConfig'
 
 const Player = (() => {
   // PLAYER FACTORY
@@ -48,36 +49,23 @@ const Player = (() => {
     // CPU METHODS
 
     function autoPlace() {
-      const fleet = [
-        'carrier',
-        'battleship',
-        'cruiser',
-        'submarine',
-        'destroyer',
-      ]
-      const length = [5, 4, 3, 3, 2]
+      const remaining = FLEET_ORDER.map((shipName) => SHIP_CONFIG[shipName])
 
-      while (fleet.length) {
+      while (remaining.length) {
         const axis = randomAxis()
         const row = randomCoordinate()
         const col = randomCoordinate()
+        const { name: shipName, length } = remaining[0]
         let placed = false
 
         if (axis === 'x') {
-          placed = getMap().placeX(Ship.createShip(fleet[0], length[0]), [
-            row,
-            col,
-          ])
+          placed = getMap().placeX(Ship.createShip(shipName, length), [row, col])
         } else {
-          placed = getMap().placeY(Ship.createShip(fleet[0], length[0]), [
-            row,
-            col,
-          ])
+          placed = getMap().placeY(Ship.createShip(shipName, length), [row, col])
         }
 
         if (placed) {
-          fleet.shift()
-          length.shift()
+          remaining.shift()
         }
       }
     }
@@ -101,7 +89,6 @@ const Player = (() => {
       }
 
       fillQueue(x, y)
-      console.log(searchQueue)
       return [x, y]
     }
 
@@ -132,15 +119,12 @@ const Player = (() => {
       }
 
       if (searchQueue.length > 1 && !origin) {
-        console.log(row, col)
         if (row === searchQueue[0][0]) {
-          console.log('c')
           searchQueue = [
             ...searchQueue.slice(0, 1),
             ...searchQueue.slice(1).filter((subArr) => subArr[0] === row),
           ]
         } else if (col === searchQueue[0][1]) {
-          console.log('d')
           searchQueue = [
             ...searchQueue.slice(0, 1),
             ...searchQueue.slice(1).filter((subArr) => subArr[1] === col),

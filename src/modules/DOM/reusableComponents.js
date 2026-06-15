@@ -1,22 +1,16 @@
 import Typed from 'typed.js'
-// ASSETS
 import agent from '../../assets/images/agent.png'
 import enemy from '../../assets/images/evilCaptain.png'
 import helper from './helper'
-import carrier from '../../assets/images/carrierX.svg'
-import battleship from '../../assets/images/battleshipX.svg'
-import cruiser from '../../assets/images/cruiserX.svg'
-import submarine from '../../assets/images/submarineX.svg'
-import destroyer from '../../assets/images/destroyerX.svg'
+import { SHIP_CONFIG } from '../utils/shipConfig'
+import { SHIP_IMAGES } from '../utils/shipImages'
 
 /* eslint-disable no-restricted-syntax */
 const Component = (() => {
-  // FOR WEBPACK IMAGES LOADING
   const images = { agent, enemy }
 
   function createMessageSection(classNamesArray) {
     const section = helper.create('section', { className: 'message' })
-    // SET ALL PASSED CLASSES
     classNamesArray.forEach((el) => section.classList.add(el))
     const character = classNamesArray[1]
 
@@ -49,7 +43,6 @@ const Component = (() => {
     return container
   }
 
-  // TYPEWRITER IGNORE NOT USED ERROR
   function addTypeWriterMessage(element, stringArray) {
     const typed = new Typed(element, {
       strings: stringArray,
@@ -58,6 +51,9 @@ const Component = (() => {
   }
 
   function createShipCard(shipName) {
+    const config = SHIP_CONFIG[shipName]
+    if (!config) return helper.create('div', { className: 'ship-card' })
+
     const card = helper.create('div', {
       className: 'ship-card',
       draggable: 'true',
@@ -66,39 +62,10 @@ const Component = (() => {
     const image = helper.create('img', { className: 'ship-image' })
     const name = helper.create('p', { className: 'ship-name' })
 
-    switch (shipName) {
-      case 'carrier':
-        card.dataset.shipName = 'carrier'
-        card.dataset.shipLength = 5
-        image.src = carrier
-        name.textContent = 'Carrier (5f)'
-        break
-      case 'battleship':
-        card.dataset.shipName = 'battleship'
-        card.dataset.shipLength = 4
-        image.src = battleship
-        name.textContent = 'Battleship (4f)'
-        break
-      case 'cruiser':
-        card.dataset.shipName = 'cruiser'
-        card.dataset.shipLength = 3
-        image.src = cruiser
-        name.textContent = 'Cruiser (3f)'
-        break
-      case 'submarine':
-        card.dataset.shipName = 'submarine'
-        card.dataset.shipLength = 3
-        image.src = submarine
-        name.textContent = 'Submarine (3f)'
-        break
-      case 'destroyer':
-        card.dataset.shipName = 'destroyer'
-        card.dataset.shipLength = 2
-        image.src = destroyer
-        name.textContent = 'Destroyer (2f)'
-        break
-      default:
-    }
+    card.dataset.shipName = config.name
+    card.dataset.shipLength = config.length
+    image.src = SHIP_IMAGES[shipName]
+    name.textContent = config.label
 
     helper.appendAll(content, [image, name])
 
@@ -107,10 +74,27 @@ const Component = (() => {
     return card
   }
 
+  function createGitHubButton() {
+    const container = helper.create('div', { className: 'button-container' })
+
+    const button = helper.create('a', {
+      id: 'github-button',
+      className: 'github-button',
+      textContent: 'GITHUB',
+      href: 'https://github.com/lovrozagar',
+      target: 'blank',
+    })
+
+    container.appendChild(button)
+
+    return container
+  }
+
   return {
     createMessageSection,
     addTypeWriterMessage,
     createShipCard,
+    createGitHubButton,
   }
 })()
 
