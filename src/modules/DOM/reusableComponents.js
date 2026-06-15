@@ -82,7 +82,8 @@ const Component = (() => {
       className: 'github-button',
       textContent: 'GITHUB',
       href: 'https://github.com/lovrozagar',
-      target: 'blank',
+      target: '_blank',
+      rel: 'noopener noreferrer',
     })
 
     container.appendChild(button)

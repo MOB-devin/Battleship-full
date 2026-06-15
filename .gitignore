@@ -1,1 +1,18 @@
 node_modules
+
+# Environment files
+.env
+.env.*
+
+# Build output
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
