@@ -16,7 +16,6 @@
       .map-label { font-family: 'Impact', 'Arial Black', sans-serif; font-size: 14px; fill: #485c7b; letter-spacing: 2px; }
       .base-star { fill: #e29b26; stroke: #121820; stroke-width: 1; }
       .text-hud { font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #e29b26; opacity: 0.7; }
-    </g>
     </style>
   </defs>
 
