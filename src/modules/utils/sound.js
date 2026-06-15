@@ -130,8 +130,7 @@ const Sound = (() => {
   // LOAD BACKGROUND AUDIO ASYNCHRONOUSLY
   async function background() {
     try {
-      const audioModule = await import('../../assets/sounds/backgroundOcean.mp3')
-      const audio = new Audio(audioModule.default)
+      const audio = new Audio('../../assets/sounds/North_Sea_Vigil.mp3')
       audio.loop = true
       await audio.play()
     } catch (err) {
