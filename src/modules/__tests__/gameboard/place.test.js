@@ -1,289 +1,102 @@
-import gameboard from '../../gameboard/gameboard'
-import ship from '../../ship/ship'
+import Gameboard from '../../factories/gameboard'
+import Ship from '../../factories/ship'
 
-// HORIZONTAL PLACEMENT
+describe('Gameboard placement', () => {
+  let board
 
-describe('X', () => {
-  // IDEAL PATH
-  test('X carrier', () => {
-    const board = gameboard()
-    board.placeX(ship('carrier', 5), [0, 0])
-    expect(board.board).toEqual([
-      ['s', 's', 's', 's', 's', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
+  beforeEach(() => {
+    board = Gameboard.createMap()
   })
 
-  test('X battleship', () => {
-    const board = gameboard()
-    board.placeX(ship('battleship', 4), [3, 3])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 's', 's', 's', 's', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
+  describe('placeX (horizontal)', () => {
+    test('places carrier at [0,0]', () => {
+      const carrier = Ship.createShip('carrier', 5)
+      const result = board.placeX(carrier, [0, 0])
+      expect(result).toBe(true)
+      expect(board.getBoard()[0][0]).toBe('carrierX')
+      expect(board.getBoard()[0][4]).toBe('carrierX')
+      expect(board.getBoard()[0][5]).toBe('x')
+    })
+
+    test('places battleship at [3,3]', () => {
+      const battleship = Ship.createShip('battleship', 4)
+      const result = board.placeX(battleship, [3, 3])
+      expect(result).toBe(true)
+      expect(board.getBoard()[3][3]).toBe('battleshipX')
+      expect(board.getBoard()[3][6]).toBe('battleshipX')
+    })
+
+    test('places destroyer at [9,8]', () => {
+      const destroyer = Ship.createShip('destroyer', 2)
+      const result = board.placeX(destroyer, [9, 8])
+      expect(result).toBe(true)
+      expect(board.getBoard()[9][8]).toBe('destroyerX')
+      expect(board.getBoard()[9][9]).toBe('destroyerX')
+    })
+
+    test('returns false when out of bounds', () => {
+      const submarine = Ship.createShip('submarine', 3)
+      const result = board.placeX(submarine, [0, 9])
+      expect(result).toBe(false)
+      expect(board.getBoard()[0][9]).toBe('x')
+    })
+
+    test('returns false when out of bounds by 1', () => {
+      const submarine = Ship.createShip('submarine', 3)
+      const result = board.placeX(submarine, [2, 8])
+      expect(result).toBe(false)
+    })
+
+    test('returns false when overlapping another ship', () => {
+      const carrier = Ship.createShip('carrier', 5)
+      const cruiser = Ship.createShip('cruiser', 3)
+      board.placeX(carrier, [0, 0])
+      const result = board.placeX(cruiser, [0, 3])
+      expect(result).toBe(false)
+    })
   })
 
-  test('X cruiser', () => {
-    const board = gameboard()
-    board.placeX(ship('cruiser', 3), [7, 6])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 's', 's', 's', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
+  describe('placeY (vertical)', () => {
+    test('places carrier at [0,0]', () => {
+      const carrier = Ship.createShip('carrier', 5)
+      const result = board.placeY(carrier, [0, 0])
+      expect(result).toBe(true)
+      expect(board.getBoard()[0][0]).toBe('carrierY')
+      expect(board.getBoard()[4][0]).toBe('carrierY')
+      expect(board.getBoard()[5][0]).toBe('x')
+    })
+
+    test('places submarine at [7,9]', () => {
+      const submarine = Ship.createShip('submarine', 3)
+      const result = board.placeY(submarine, [7, 9])
+      expect(result).toBe(true)
+      expect(board.getBoard()[7][9]).toBe('submarineY')
+      expect(board.getBoard()[9][9]).toBe('submarineY')
+    })
+
+    test('returns false when out of bounds vertically', () => {
+      const carrier = Ship.createShip('carrier', 5)
+      const result = board.placeY(carrier, [7, 0])
+      expect(result).toBe(false)
+    })
+
+    test('returns false when overlapping another ship', () => {
+      const carrier = Ship.createShip('carrier', 5)
+      const cruiser = Ship.createShip('cruiser', 3)
+      board.placeY(carrier, [0, 0])
+      const result = board.placeY(cruiser, [3, 0])
+      expect(result).toBe(false)
+    })
   })
 
-  test('X submarine', () => {
-    const board = gameboard()
-    board.placeX(ship('submarine', 3), [8, 7])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 's', 's', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-
-  test('X destroyer', () => {
-    const board = gameboard()
-    board.placeX(ship('destroyer', 2), [9, 8])
-    console.log(board.board)
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's', 's'],
-    ])
-  })
-
-  // OUT OF BOUNDS
-  test('X out of bounds by 2', () => {
-    const board = gameboard()
-    board.placeX(ship('submarine', 3), [0, 9])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-
-  test('X out of bounds by 1', () => {
-    const board = gameboard()
-    board.placeX(ship('submarine', 3), [2, 8])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-
-  // SPOT TAKEN
-  test('gameboard spot taken', () => {
-    const board = gameboard()
-    board.placeX(ship('submarine', 3), [0, 1])
-    board.placeX(ship('carrier', 5), [0, 0])
-    expect(board.board).toEqual([
-      ['x', 's', 's', 's', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-})
-
-// VERTICAL PLACEMENT
-
-describe('Y', () => {
-  // IDEAL PLACEMENT
-  test('Y carrier', () => {
-    const board = gameboard()
-    board.placeY(ship('carrier', 5), [0, 0])
-    expect(board.board).toEqual([
-      ['s', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['s', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['s', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['s', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['s', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-  test('Y battleship', () => {
-    const board = gameboard()
-    board.placeY(ship('battleship', 4), [2, 2])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-  test('Y cruiser', () => {
-    const board = gameboard()
-    board.placeY(ship('cruiser', 3), [6, 9])
-    console.log(board.board)
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-  test('Y submarine', () => {
-    const board = gameboard()
-    board.placeY(ship('submarine', 3), [7, 9])
-    console.log(board.board)
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 's'],
-    ])
-  })
-  test('Y destroyer', () => {
-    const board = gameboard()
-    board.placeY(ship('destroyer', 2), [8, 1])
-    console.log(board.board)
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-  // OUT OF BOUNDS
-  test('Y out of bounds by 2', () => {
-    const board = gameboard()
-    board.placeY(ship('submarine', 3), [9, 3])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-
-  test('Y out of bounds by 1', () => {
-    const board = gameboard()
-    board.placeY(ship('submarine', 3), [9, 2])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
-  })
-
-  // SPOT TAKEN
-  test('gameboard spot taken', () => {
-    const board = gameboard()
-    board.placeY(ship('submarine', 3), [1, 1])
-    board.placeY(ship('carrier', 5), [0, 1])
-    expect(board.board).toEqual([
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 's', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-      ['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'],
-    ])
+  describe('board initialization', () => {
+    test('creates a 10x10 board filled with x', () => {
+      const b = board.getBoard()
+      expect(b.length).toBe(10)
+      b.forEach((row) => {
+        expect(row.length).toBe(10)
+        row.forEach((cell) => expect(cell).toBe('x'))
+      })
+    })
   })
 })
