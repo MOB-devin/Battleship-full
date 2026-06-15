@@ -157,6 +157,11 @@
   }
 }
 
+#board-friendly .hit {
+  animation-name: shot-usa;
+  -webkit-animation-name: shot-usa;
+}
+
 .disabled {
   pointer-events: none;
 }
