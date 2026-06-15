@@ -1,4 +1,5 @@
 import Ship from './ship'
+import { SHIP_CONFIG } from '../utils/shipConfig'
 
 const Gameboard = (() => {
   // MAP FACTORY
@@ -52,22 +53,9 @@ const Gameboard = (() => {
     // FLEET
 
     function addToFleet(battleship) {
-      switch (battleship.getName()) {
-        case 'carrier':
-          fleet.push(Ship.createShip('carrier', 5))
-          break
-        case 'battleship':
-          fleet.push(Ship.createShip('battleship', 4))
-          break
-        case 'cruiser':
-          fleet.push(Ship.createShip('cruiser', 3))
-          break
-        case 'submarine':
-          fleet.push(Ship.createShip('submarine', 3))
-          break
-        default:
-          fleet.push(Ship.createShip('destroyer', 2))
-      }
+      const name = battleship.getName()
+      const config = SHIP_CONFIG[name] || SHIP_CONFIG.destroyer
+      fleet.push(Ship.createShip(config.name, config.length))
     }
 
     function setFleetEmpty() {
@@ -142,29 +130,13 @@ const Gameboard = (() => {
     }
 
     function recordHit(x, y) {
-      switch (board[x][y]) {
-        case 'carrierX':
-        case 'carrierY':
-          getShip('carrier').hit()
-          break
-        case 'battleshipX':
-        case 'battleshipY':
-          getShip('battleship').hit()
-          break
-        case 'cruiserX':
-        case 'cruiserY':
-          getShip('cruiser').hit()
-          break
-        case 'submarineX':
-        case 'submarineY':
-          getShip('submarine').hit()
-          break
-        case 'destroyerX':
-        case 'destroyerY':
-          getShip('destroyer').hit()
-          break
-        default:
-          board[x][y] = 'miss'
+      const cell = board[x][y]
+      const shipName = cell.slice(0, -1)
+      const ship = getShip(shipName)
+      if (ship) {
+        ship.hit()
+      } else {
+        board[x][y] = 'miss'
       }
     }
 

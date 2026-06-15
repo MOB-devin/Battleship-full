@@ -1,4 +1,4 @@
-import ship from '../factories/ship'
+import Ship from '../factories/ship'
 import fleet from './fleet'
 import Game from '../factories/game'
 import helper from './helper'
@@ -148,12 +148,12 @@ const DragDrop = (() => {
     // RETURNS [BOOL, SHIP-NAME]
     if (map.getAxis() === 'X') {
       return [
-        map.placeX(ship(shipOnDrag.name, shipOnDrag.length), [x, y]),
+        map.placeX(Ship.createShip(shipOnDrag.name, shipOnDrag.length), [x, y]),
         shipOnDrag.name,
       ]
     }
     return [
-      map.placeY(ship(shipOnDrag.name, shipOnDrag.length), [x, y]),
+      map.placeY(Ship.createShip(shipOnDrag.name, shipOnDrag.length), [x, y]),
       shipOnDrag.name,
     ]
   }

@@ -66,7 +66,7 @@ const helper = (() => {
   function createBoard(description) {
     const board = document.createElement('div')
     board.id = `field-container-${description}`
-    board.className = `field-container`
+    board.className = `field-container field-container-${description}`
 
     for (let i = 0; i < BOARD_SIZE; i += 1) {
       for (let j = 0; j < BOARD_SIZE; j += 1) {
