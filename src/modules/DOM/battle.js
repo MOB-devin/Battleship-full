@@ -322,7 +322,7 @@ const Battle = (() => {
     const boardArray = map.getBoard()
 
     map.receiveAttack([data.row, data.col])
-    if (data.battleship.getSunk()) {
+    if (data.battleship && data.battleship.getSunk()) {
       const element = boardArray[data.row][data.col]
       const [row, col] = findOrigin(boardArray, boardArray[data.row][data.col])
       fleet.loadShipOnBoard(data.cpu, { map, board, element, row, col })
@@ -362,7 +362,7 @@ const Battle = (() => {
     if (boardElement !== 'x') {
       if (ship && !ship.getSunk())
         displayMessage(agent, Message.getNewEnemyHitMessage(agent.textContent))
-      else if (ship.getSunk())
+      else if (ship && ship.getSunk())
         displayMessage(agent, Message.getNewEnemySunkMessage(agent.textContent))
     } else {
       displayMessage(agent, Message.getNewPlayerMissMessage(agent.textContent))
@@ -378,7 +378,7 @@ const Battle = (() => {
     if (boardElement !== 'x' && boardElement !== 'miss') {
       if (ship && !ship.getSunk())
         displayMessage(enemy, Message.getNewPlayerHitMessage(enemy.textContent))
-      else if (ship.getSunk())
+      else if (ship && ship.getSunk())
         displayMessage(
           enemy,
           Message.getNewPlayerSunkMessage(enemy.textContent)

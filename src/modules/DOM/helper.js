@@ -80,7 +80,9 @@ const helper = (() => {
   }
 
   function create(type, data) {
-    if (!type) console.log('missing type')
+    if (!type) {
+      throw new Error('helper.create() called without an element type')
+    }
 
     const element = document.createElement(type)
 

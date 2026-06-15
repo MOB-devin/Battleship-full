@@ -28,7 +28,13 @@ const Gameboard = (() => {
     }
 
     function getShip(shipName) {
-      return fleet.filter((battleship) => battleship.getName() === shipName)[0]
+      const found = fleet.filter(
+        (battleship) => battleship.getName() === shipName
+      )[0]
+      if (!found) {
+        console.warn(`Ship "${shipName}" not found in fleet`)
+      }
+      return found || null
     }
 
     // SETTERS
@@ -126,6 +132,14 @@ const Gameboard = (() => {
 
     function receiveAttack(coords) {
       const [x, y] = coords
+      if (x < 0 || x >= board.length || y < 0 || y >= board[0].length) {
+        console.error(`Attack out of bounds: [${x}, ${y}]`)
+        return
+      }
+      if (board[x][y] === 'miss' || board[x][y] === 'hit') {
+        console.warn(`Cell [${x}, ${y}] already attacked`)
+        return
+      }
       recordHit(x, y)
     }
 
