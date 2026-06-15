@@ -22,7 +22,7 @@ const pregame = (() => {
   }
 
   function createTitle() {
-    const title = helper.create('h1', { textContent: 'BATTLESHIP' })
+    const title = helper.create('h1', { textContent: 'BATTLE FOR THE PACIFIC' })
     return title
   }
 
@@ -33,7 +33,7 @@ const pregame = (() => {
       type: 'text',
       id: 'name-input',
       className: 'name-input',
-      placeholder: 'Captain name',
+      placeholder: 'Admiral name',
       minLength: 0,
       maxLength: 15,
     })
@@ -54,7 +54,7 @@ const pregame = (() => {
 
     const text = helper.create('span', {
       className: 'text-play-button',
-      textContent: 'ENTER COMBAT',
+      textContent: 'LAUNCH ATTACK',
     })
 
     button.appendChild(text)
