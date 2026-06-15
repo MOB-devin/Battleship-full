@@ -65,7 +65,7 @@ const fleet = (() => {
     const image = helper.create('img', {
       className: `${shipName}-${player.getIdentity()}`,
     })
-    image.src = loadShipImage(shipName)
+    image.src = loadShipImage(shipName, player.getIdentity())
     image.style.height = '95%'
     image.style.aspectRatio = `${length}/1`
 
