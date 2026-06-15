@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="100%" height="100%" style="background-color: #121820;">
+  <defs>
+    <!-- Tactical Navigation Grid Layer -->
+    <pattern id="nav-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <rect width="50" height="50" fill="none" stroke="#1d2633" stroke-width="1"/>
+      <circle cx="50" cy="50" r="1.5" fill="#293647" opacity="0.5"/>
+    </pattern>
+    
+    <style>
+      .ocean-grid { fill: url(#nav-grid); }
+      .land-mass { fill: #202b3c; stroke: #2f3e56; stroke-width: 2; stroke-linejoin: round; }
+      .us-zone { fill: #2d3b4e; stroke: #455975; stroke-width: 2; stroke-linejoin: round; }
+      .ijn-zone { fill: #29303a; stroke: #3f4958; stroke-width: 2; stroke-linejoin: round; }
+      .grid-line { stroke: #e29b26; stroke-width: 1.5; stroke-dasharray: 6,4; opacity: 0.35; }
+      .range-ring { fill: none; stroke: #d14949; stroke-width: 1.5; stroke-dasharray: 4,4; opacity: 0.4; }
+      .map-label { font-family: 'Impact', 'Arial Black', sans-serif; font-size: 14px; fill: #485c7b; letter-spacing: 2px; }
+      .base-star { fill: #e29b26; stroke: #121820; stroke-width: 1; }
+      .text-hud { font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #e29b26; opacity: 0.7; }
+    </g>
+    </style>
+  </defs>
+
+  <!-- Base Grid and Ocean Layer -->
+  <rect width="1200" height="600" fill="#121820" />
+  <rect width="1200" height="600" class="ocean-grid" />
+
+  <!-- Tactical Theater Framing Lines -->
+  <line x1="0" y1="300" x2="1200" y2="300" class="grid-line" /> <!-- Equator -->
+  <line x1="600" y1="0" x2="600" y2="600" class="grid-line" />  <!-- Central Dividing Line -->
+  
+  <!-- Range Rings over critical contested zones -->
+  <circle cx="530" cy="220" r="80" class="range-ring" />  <!-- Midway Range -->
+  <circle cx="530" cy="220" r="160" class="range-ring" />
+  <circle cx="820" cy="280" r="100" class="range-ring" /> <!-- Pearl Harbor Range -->
+
+  <!-- ============================================================= -->
+  <!-- LEFT SIDE: ASIA, JAPAN ARCHIPELAGO, AUSTRALIA (GRAPHIC STYLE) -->
+  <!-- ============================================================= -->
+  <g id="western-pacific-front">
+    <!-- Mainland Asia & Russia Chunk -->
+    <path d="M -10,-10 L 220,-10 L 200,40 L 160,50 L 180,90 L 140,110 L 150,150 L 100,170 L 110,210 L 70,240 L 85,290 L 30,320 L 50,380 L -10,390 Z" class="land-mass" />
+    
+    <!-- Stylized Korean Peninsula -->
+    <path d="M 140,110 L 155,125 L 145,150 L 135,145 Z" class="land-mass" />
+    
+    <!-- Imperial Japanese Archipelago (Bold, identifiable cartoon geometry) -->
+    <g class="ijn-zone">
+      <!-- Sakhalin / Northern Arc -->
+      <path d="M 230,20 L 250,50 L 240,70 L 225,30 Z" />
+      <!-- Hokkaido -->
+      <path d="M 240,85 L 275,95 L 260,120 L 235,110 Z" />
+      <!-- Honshu (Main Island Curve) -->
+      <path d="M 235,125 L 265,145 L 240,195 L 200,210 L 185,195 L 210,165 Z" />
+      <!-- Kyushu & Shikoku -->
+      <path d="M 180,210 L 195,215 L 190,230 L 175,225 Z" />
+      <path d="M 165,220 L 175,225 L 170,240 L 160,230 Z" />
+    </g>
+    
+    <!-- Philippines Sector -->
+    <path d="M 120,310 L 145,315 L 135,350 L 115,340 Z" class="ijn-zone" />
+    <path d="M 130,360 L 155,365 L 145,395 L 125,385 Z" class="ijn-zone" />
+    
+    <!-- Northern Territory of Australia -->
+    <path d="M 80,510 L 140,490 L 190,515 L 240,500 L 270,540 L 250,610 L -10,610 Z" class="land-mass" />
+    <!-- New Guinea -->
+    <path d="M 130,440 L 220,430 L 250,460 L 210,475 L 150,465 Z" class="land-mass" />
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- RIGHT SIDE: NORTH AMERICA WEST COAST (GRAPHIC STYLE)          -->
+  <!-- ============================================================= -->
+  <g id="eastern-pacific-front" class="us-zone">
+    <!-- Alaska & Aleutian Island Bridge -->
+    <path d="M 520,75 L 550,65 L 590,70 L 630,55 L 670,65 L 720,40 L 800,50 L 820,15 L 1210,15 L 1210,90 L 1020,95 L 980,120 L 990,75 Z" />
+    
+    <!-- North American Coastline (Canada, USA, Mexico Profile) -->
+    <path d="M 1020,95 L 1050,140 L 1035,190 L 1055,240 L 1090,290 L 1110,320 L 1100,360 L 1130,390 L 1110,450 L 1145,500 L 1130,540 L 1210,560 L 1210,90 Z" />
+  </g>
+
+  <!-- ============================================================= -->
+  <!-- CENTER ISLAND OUTPOSTS & BASES                                -->
+  <!-- ============================================================= -->
+  <!-- Midway Island Station -->
+  <circle cx="530" cy="220" r="6" fill="#e29b26" />
+  <polygon points="530,212 532,217 538,217 533,220 535,226 530,222 525,226 527,220 522,217 528,217" class="base-star" />
+
+  <!-- Hawaiian Islands Chain -->
+  <g class="us-zone" transform="translate(-10,0)">
+    <path d="M 810,275 L 825,280 L 840,290 L 835,300 L 815,290 Z" />
+    <circle cx="820" cy="282" r="3" fill="#e29b26" /> <!-- Pearl Harbor Mark -->
+  </g>
+  
+  <!-- Solomon Islands / Guadalcanal Base -->
+  <path d="M 290,440 L 320,455 L 350,475" stroke="#455975" stroke-width="5" stroke-linecap="round" fill="none" />
+
+  <!-- ============================================================= -->
+  <!-- HUD TEXT LABELS & ICONOGRAPHY                                 -->
+  <!-- ============================================================= -->
+  <text x="180" y="270" class="map-label">IJN UNKNOWN WATERS</text>
+  <text x="890" y="160" class="map-label">USN SECTOR BASE</text>
+  <text x="475" y="560" class="map-label" style="fill: #293647; font-size: 24px;">PACIFIC THEATER</text>
+
+  <!-- Anchored Station Text Details -->
+  <text x="485" y="210" class="text-hud">MIDWAY ATTOLL</text>
+  <text x="835" y="275" class="text-hud">PEARL HARBOR</text>
+  <text x="20" y="35" class="text-hud">GRID OP: 44-B</text>
+  <text x="1060" y="580" class="text-hud">MAP SCALE: 1:1000</text>
+</svg>
