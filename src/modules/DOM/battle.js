@@ -362,13 +362,7 @@ const Battle = (() => {
     if (boardElement !== 'x') {
       if (ship && !ship.getSunk())
         displayMessage(agent, Message.getNewEnemyHitMessage(agent.textContent))
-<<<<<<< HEAD
-      else if (ship.getSunk())
-||||||| parent of 13b5bcc (fix: improve error handling and fix silent property access bugs)
-      else if (ship.isSunk)
-=======
       else if (ship && ship.getSunk())
->>>>>>> 13b5bcc (fix: improve error handling and fix silent property access bugs)
         displayMessage(agent, Message.getNewEnemySunkMessage(agent.textContent))
     } else {
       displayMessage(agent, Message.getNewPlayerMissMessage(agent.textContent))
@@ -384,13 +378,7 @@ const Battle = (() => {
     if (boardElement !== 'x' && boardElement !== 'miss') {
       if (ship && !ship.getSunk())
         displayMessage(enemy, Message.getNewPlayerHitMessage(enemy.textContent))
-<<<<<<< HEAD
-      else if (ship.getSunk())
-||||||| parent of 13b5bcc (fix: improve error handling and fix silent property access bugs)
-      else if (ship.isSunk)
-=======
       else if (ship && ship.getSunk())
->>>>>>> 13b5bcc (fix: improve error handling and fix silent property access bugs)
         displayMessage(
           enemy,
           Message.getNewPlayerSunkMessage(enemy.textContent)
