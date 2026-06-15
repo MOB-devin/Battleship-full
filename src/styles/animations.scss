@@ -1,29 +1,39 @@
 @-webkit-keyframes shot {
-  75% {
-    width: 5rem;
-    background-color: #fefefe;
-    border-color: #fefefe;
-  }
-
+  75% { width: 5rem; background-color: #fefefe; border-color: #fefefe; }
   100% {
     width: 30%;
-    background-color: rgba(255, 0, 0, 0.85);
-    border-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(90, 98, 102, 0.85);
+    border-color: rgba(90, 98, 102, 0.5);
     transform: translateX(0) rotate(-315deg);
   }
 }
 
 @keyframes shot {
-  75% {
-    width: 5rem;
-    background-color: #fefefe;
-    border-color: #fefefe;
-  }
-
+  75% { width: 5rem; background-color: #fefefe; border-color: #fefefe; }
   100% {
     width: 30%;
-    background-color: rgba(255, 0, 0, 0.85);
-    border-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(90, 98, 102, 0.85);
+    border-color: rgba(90, 98, 102, 0.5);
+    transform: translateX(0) rotate(-315deg);
+  }
+}
+
+@-webkit-keyframes shot-usa {
+  75% { width: 5rem; background-color: #fefefe; border-color: #fefefe; }
+  100% {
+    width: 30%;
+    background-color: rgba(74, 87, 104, 0.85);
+    border-color: rgba(74, 87, 104, 0.5);
+    transform: translateX(0) rotate(-315deg);
+  }
+}
+
+@keyframes shot-usa {
+  75% { width: 5rem; background-color: #fefefe; border-color: #fefefe; }
+  100% {
+    width: 30%;
+    background-color: rgba(74, 87, 104, 0.85);
+    border-color: rgba(74, 87, 104, 0.5);
     transform: translateX(0) rotate(-315deg);
   }
 }
