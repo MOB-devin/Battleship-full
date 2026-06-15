@@ -6,21 +6,34 @@ import missSound from '../../assets/sounds/miss.mp3'
 const Sound = (() => {
   // Play audio with Web Audio API to avoid delay
   function playSound(soundUrl) {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
-    const request = new XMLHttpRequest()
-    request.open('GET', soundUrl, true)
-    request.responseType = 'arraybuffer'
-    request.onload = () => {
-      audioCtx.decodeAudioData(request.response, (buffer) => {
-        const source = audioCtx.createBufferSource()
-        source.buffer = buffer
-        source.connect(audioCtx.destination)
-        source.start(0)
-      })
-      audioCtx.resume()
+      const request = new XMLHttpRequest()
+      request.open('GET', soundUrl, true)
+      request.responseType = 'arraybuffer'
+      request.onerror = () => {
+        console.error(`Failed to load sound: ${soundUrl}`)
+      }
+      request.onload = () => {
+        audioCtx.decodeAudioData(
+          request.response,
+          (buffer) => {
+            const source = audioCtx.createBufferSource()
+            source.buffer = buffer
+            source.connect(audioCtx.destination)
+            source.start(0)
+          },
+          (err) => {
+            console.error(`Failed to decode audio: ${soundUrl}`, err)
+          }
+        )
+        audioCtx.resume()
+      }
+      request.send()
+    } catch (err) {
+      console.error('Audio playback failed:', err)
     }
-    request.send()
   }
 
   function shot() {
@@ -37,10 +50,14 @@ const Sound = (() => {
 
   // LOAD BACKGROUND AUDIO ASYNCHRONOUSLY
   async function background() {
-    const audioModule = await import('../../assets/sounds/backgroundOcean.mp3')
-    const audio = new Audio(audioModule.default)
-    audio.loop = true
-    audio.play()
+    try {
+      const audioModule = await import('../../assets/sounds/backgroundOcean.mp3')
+      const audio = new Audio(audioModule.default)
+      audio.loop = true
+      await audio.play()
+    } catch (err) {
+      console.warn('Background audio failed to play:', err)
+    }
   }
   // PLAY BACKGROUND AUDIO ON FIRST CLICK/TAP
   function BackgroundOnFirstTouch() {

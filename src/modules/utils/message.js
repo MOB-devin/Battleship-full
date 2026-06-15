@@ -112,56 +112,80 @@ const Message = (() => {
 
   function getNewEnemyHitMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.enemyHit[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.enemyHit[0]
   }
 
   function getNewEnemySunkMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.enemySunk[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.enemySunk[0]
   }
 
   function getNewPlayerMissMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.playerMiss[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.playerMiss[0]
   }
 
   function getNewPlayerHitMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.playerHit[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.playerHit[0]
   }
 
   function getNewPlayerSunkMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.playerSunk[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.playerSunk[0]
   }
 
   function getNewEnemyMissMessage(previousMessage) {
     let newMessage = previousMessage
+    let attempts = 0
 
-    while (newMessage === previousMessage)
+    while (newMessage === previousMessage) {
       newMessage = messages.enemyMiss[randomZeroToNine()]
+      attempts += 1
+      if (attempts > 50) break
+    }
 
-    return newMessage
+    return newMessage || messages.enemyMiss[0]
   }
 
   function getNoCommentMessage() {

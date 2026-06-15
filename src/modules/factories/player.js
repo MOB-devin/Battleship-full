@@ -34,10 +34,11 @@ const Player = (() => {
 
     function isEmptyField(coordinate) {
       const [x, y] = coordinate
-      return (
-        getMap().getBoard()[x][y] !== 'miss' &&
-        getMap().getBoard()[x][y] !== 'hit'
-      )
+      const boardData = getMap().getBoard()
+      if (x < 0 || x >= boardData.length || y < 0 || y >= boardData[0].length) {
+        return false
+      }
+      return boardData[x][y] !== 'miss' && boardData[x][y] !== 'hit'
     }
 
     function isLoser() {
@@ -74,8 +75,15 @@ const Player = (() => {
       let invalidCoordinate = true
       let x
       let y
+      const MAX_ATTEMPTS = 200
+      let attempts = 0
 
       while (invalidCoordinate) {
+        attempts += 1
+        if (attempts > MAX_ATTEMPTS) {
+          console.error('CPU exceeded max attempts to find a valid move')
+          break
+        }
         if (searchQueue.length > 1) [x, y] = getRandomAndRemove(searchQueue)
         else {
           x = randomCoordinate()

@@ -24,7 +24,7 @@ const view = (() => {
     setup.loadSetupContent()
     DragDrop.initDraggableFields()
     // UNMUTE SOUND ON IOS WITH 1S SILENCE SO THAT WEB AUDIO API CAN BE USED
-    Sound.unMuteIOS()
+    Sound.BackgroundOnFirstTouch()
   }
 
   function setPlayerName() {

@@ -1,6 +1,13 @@
 const Ship = (() => {
   // SHIP FACTORY
   const createShip = (shipName, shipLength) => {
+    if (!shipName || typeof shipName !== 'string') {
+      throw new Error(`Invalid ship name: ${shipName}`)
+    }
+    if (!Number.isInteger(shipLength) || shipLength <= 0) {
+      throw new Error(`Invalid ship length for "${shipName}": ${shipLength}`)
+    }
+
     const name = shipName
     const length = shipLength
     let timesHit = 0
@@ -32,6 +39,10 @@ const Ship = (() => {
     }
 
     function hit() {
+      if (isSunk) {
+        console.warn(`Ship "${name}" is already sunk, ignoring hit`)
+        return
+      }
       timesHit += 1
       if (timesHit === length) sunk()
     }
