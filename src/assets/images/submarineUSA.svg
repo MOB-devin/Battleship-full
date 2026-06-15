@@ -1,0 +1,8 @@
+<svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ultra-low flat deck profile, tapering sharply at bow and stern -->
+  <path d="M 5,24 Q 30,17 60,17 L 180,17 Q 210,17 235,24 L 235,26 L 5,26 Z" fill="#343d46"/>
+  <!-- Minimalist central conning tower with periscope shears -->
+  <path d="M 110,17 L 115,9 L 135,9 L 140,17 Z" fill="#4a5768"/>
+  <line x1="122" y1="9" x2="122" y2="2" stroke="#627285" stroke-width="1.5"/>
+  <line x1="127" y1="9" x2="127" y2="4" stroke="#627285" stroke-width="1"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg width="240" height="40" viewBox="0 0 240 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Features the unique integrated hangar cylinder bulge typical of IJN sub cruisers -->
+  <path d="M 5,25 C 20,20 45,18 75,18 L 175,18 Q 210,18 235,25 L 235,27 L 5,27 Z" fill="#43494c"/>
+  <rect x="90" y="13" width="45" height="5" fill="#2d3235" rx="1"/> <!-- Hangar Tube -->
+  <polygon points="130,13 133,6 148,6 153,13" fill="#5a6266"/> <!-- Conning Tower -->
+  <line x1="140" y1="6" x2="140" y2="0" stroke="#2d3235" stroke-width="1"/>
+</svg>

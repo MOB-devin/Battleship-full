@@ -1,0 +1,8 @@
+<svg width="400" height="40" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="12" width="390" height="16" rx="2" fill="#3a4756"/>
+  <line x1="15" y1="20" x2="385" y2="20" stroke="#f1a93c" stroke-dasharray="8,6" stroke-width="1.5"/>
+  <!-- Starboard Side Island Structure -->
+  <path d="M 180,12 L 185,2 L 215,2 L 220,12 Z" fill="#1a1e24"/>
+  <rect x="195" y="-4" width="7" height="6" fill="#4a5768"/>
+  <line x1="198" y1="-4" x2="198" y2="-11" stroke="#4a5768" stroke-width="1.5"/>
+</svg>

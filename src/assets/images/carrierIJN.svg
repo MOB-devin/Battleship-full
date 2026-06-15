@@ -1,0 +1,9 @@
+<svg width="400" height="40" viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg">
+  <rect x="5" y="14" width="390" height="14" rx="1" fill="#4a5257"/>
+  <!-- Crimson Hinomaru Identification Crest on Bow -->
+  <circle cx="55" cy="21" r="5.5" fill="#b22222"/>
+  <!-- Minimalist low profile island -->
+  <rect x="170" y="7" width="16" height="7" fill="#2d3235"/>
+  <!-- Side-mounted downward-curved smoke stack -->
+  <path d="M 198,14 C 200,19 210,22 214,18" stroke="#1d2123" stroke-width="3" fill="none"/>
+</svg>
