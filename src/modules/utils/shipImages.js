@@ -1,13 +1,37 @@
-import carrier from '../../assets/images/carrierX.svg'
-import battleship from '../../assets/images/battleshipX.svg'
-import cruiser from '../../assets/images/cruiserX.svg'
-import submarine from '../../assets/images/submarineX.svg'
-import destroyer from '../../assets/images/destroyerX.svg'
+import carrierUSA from '../../assets/images/carrierUSA.svg'
+import battleshipUSA from '../../assets/images/battleshipUSA.svg'
+import cruiserUSA from '../../assets/images/cruiserUSA.svg'
+import submarineUSA from '../../assets/images/submarineUSA.svg'
+import destroyerUSA from '../../assets/images/destroyerUSA.svg'
 
-const SHIP_IMAGES = { carrier, battleship, cruiser, submarine, destroyer }
+import carrierIJN from '../../assets/images/carrierIJN.svg'
+import battleshipIJN from '../../assets/images/battleshipIJN.svg'
+import cruiserIJN from '../../assets/images/cruiserIJN.svg'
+import submarineIJN from '../../assets/images/submarineIJN.svg'
+import destroyerIJN from '../../assets/images/destroyerIJN.svg'
 
-function loadShipImage(shipName) {
-  return SHIP_IMAGES[shipName] || ''
+const USA_SHIP_IMAGES = {
+  carrier: carrierUSA,
+  battleship: battleshipUSA,
+  cruiser: cruiserUSA,
+  submarine: submarineUSA,
+  destroyer: destroyerUSA,
 }
 
-export { SHIP_IMAGES, loadShipImage }
+const IJN_SHIP_IMAGES = {
+  carrier: carrierIJN,
+  battleship: battleshipIJN,
+  cruiser: cruiserIJN,
+  submarine: submarineIJN,
+  destroyer: destroyerIJN,
+}
+
+// SHIP_IMAGES kept for backward compatibility — setup cards always show USN
+const SHIP_IMAGES = USA_SHIP_IMAGES
+
+function loadShipImage(shipName, identity = 'player') {
+  const images = identity === 'cpu' ? IJN_SHIP_IMAGES : USA_SHIP_IMAGES
+  return images[shipName] || ''
+}
+
+export { SHIP_IMAGES, USA_SHIP_IMAGES, IJN_SHIP_IMAGES, loadShipImage }
