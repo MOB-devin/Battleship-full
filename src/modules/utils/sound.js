@@ -12,13 +12,13 @@ const Sound = (() => {
     setTimeout(() => {
       const audio = new Audio(hitAudioSrc)
       audio.play().catch(() => {})
-    }, 1500)
+    }, 750)
   }
   function miss() {
     setTimeout(() => {
       const audio = new Audio(missAudioSrc)
       audio.play().catch(() => {})
-    }, 1500)
+    }, 750)
   }
 
   // LOAD BACKGROUND AUDIO ASYNCHRONOUSLY
