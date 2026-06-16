@@ -119,6 +119,9 @@
       &.no-drop * {
         pointer-events: none;
       }
+      &.placed {
+        background-color: rgba(135, 207, 235, 0.2);
+      }
       &.hovering {
         background-color: $blue-light-color-transparent;
         &.red {

@@ -249,6 +249,8 @@ const setup = (() => {
   function removePlacedShips(parentNode) {
     const ships = parentNode.querySelectorAll('.ship-image-container')
     ships.forEach((ship) => ship.remove())
+    const placedFields = parentNode.querySelectorAll('.field.placed')
+    placedFields.forEach((field) => field.classList.remove('placed'))
   }
 
   function handleContinue() {
