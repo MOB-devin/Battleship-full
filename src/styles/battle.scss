@@ -23,21 +23,21 @@
         radial-gradient(
           circle,
           rgba(2, 0, 36, 0) 0%,
-          rgba(243, 166, 64, 0.15449929971988796) 60%,
-          rgba(243, 166, 64, 0.25253851540616246) 85%,
-          rgba(243, 166, 64, 0.3981967787114846) 100%
+          rgba(192, 57, 43, 0.15) 60%,
+          rgba(192, 57, 43, 0.25) 85%,
+          rgba(192, 57, 43, 0.4) 100%
         );
       &::before {
-        -webkit-filter: invert(87%) sepia(18%) saturate(3703%)
-          hue-rotate(325deg) brightness(96%) contrast(98%) !important;
-        filter: invert(87%) sepia(18%) saturate(3703%) hue-rotate(325deg)
-          brightness(96%) contrast(98%) !important;
+        -webkit-filter: invert(19%) sepia(95%) saturate(3000%)
+          hue-rotate(350deg) brightness(85%) contrast(95%) !important;
+        filter: invert(19%) sepia(95%) saturate(3000%) hue-rotate(350deg)
+          brightness(85%) contrast(95%) !important;
       }
       img {
-        -webkit-filter: invert(63%) sepia(99%) saturate(360%) hue-rotate(343deg)
-          brightness(98%) contrast(94%);
-        filter: invert(63%) sepia(99%) saturate(360%) hue-rotate(343deg)
-          brightness(98%) contrast(94%);
+        -webkit-filter: invert(19%) sepia(95%) saturate(2500%) hue-rotate(350deg)
+          brightness(90%) contrast(90%);
+        filter: invert(19%) sepia(95%) saturate(2500%) hue-rotate(350deg)
+          brightness(90%) contrast(90%);
       }
     }
     &::after {
@@ -220,15 +220,15 @@
     inset: 0;
     width: 200%;
     background-position: left;
-    background: rgb(243, 166, 64);
+    background: rgb(192, 57, 43);
     background: linear-gradient(
       90deg,
-      rgba(243, 166, 64, 0) 0%,
-      rgba(243, 166, 64, 0.20211834733893552) 20%,
-      rgba(243, 166, 64, 0.40379901960784315) 40%,
-      rgba(243, 166, 64, 0.6026785714285714) 60%,
-      rgba(243, 166, 64, 0.7987570028011204) 80%,
-      rgba(243, 166, 64, 1) 100%
+      rgba(192, 57, 43, 0) 0%,
+      rgba(192, 57, 43, 0.2) 20%,
+      rgba(192, 57, 43, 0.4) 40%,
+      rgba(192, 57, 43, 0.6) 60%,
+      rgba(192, 57, 43, 0.8) 80%,
+      rgba(192, 57, 43, 1) 100%
     );
     transform: translateX(100%);
   }
