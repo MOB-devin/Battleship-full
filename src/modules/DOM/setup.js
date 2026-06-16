@@ -126,6 +126,8 @@ const setup = (() => {
   function initButtons() {
     initAxisButtons()
     initResetContinueButtons()
+    initShiftToggle()
+    initRightClickToggle()
     disableContinueButton()
     setTabIndex()
   }
@@ -144,6 +146,49 @@ const setup = (() => {
     button.id === 'x-button' ? map.setAxisX() : map.setAxisY()
     button.classList.add('selected')
     oppositeButton.classList.remove('selected')
+  }
+
+  function toggleAxis() {
+    const map = Game.getState().getPlayer().getMap()
+    const buttonX = document.getElementById('x-button')
+    const buttonY = document.getElementById('y-button')
+
+    if (map.getAxis() === 'X') {
+      map.setAxisY()
+      buttonY.classList.add('selected')
+      buttonX.classList.remove('selected')
+    } else {
+      map.setAxisX()
+      buttonX.classList.add('selected')
+      buttonY.classList.remove('selected')
+    }
+  }
+
+  function initShiftToggle() {
+    let shiftHeld = false
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Shift' && !shiftHeld) {
+        shiftHeld = true
+        toggleAxis()
+      }
+    })
+
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'Shift' && shiftHeld) {
+        shiftHeld = false
+        toggleAxis()
+      }
+    })
+  }
+
+  function initRightClickToggle() {
+    const fieldContainer = document.getElementById('field-container-setup')
+
+    fieldContainer.addEventListener('contextmenu', (event) => {
+      event.preventDefault()
+      toggleAxis()
+    })
   }
 
   function initResetContinueButtons() {
