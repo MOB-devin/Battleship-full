@@ -1,4 +1,4 @@
-<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gradient">
       <stop stop-color="#000"/>
@@ -16,6 +16,6 @@
       </path>
     </pattern>
   </defs>
-  <text text-anchor="middle" x="50" y="15" font-size="15" fill="#99ceeb" font-weight="600" font-family="'Anton', sans-serif" fill-opacity="0.5">BATTLESHIP</text>
-  <text text-anchor="middle" x="49" y="15"  font-size="15" font-family="'Anton', sans-serif" font-weight="600" fill="url(#wave)" fill-opacity="1">BATTLESHIP</text>
+  <text text-anchor="middle" x="100" y="15" font-size="15" fill="#99ceeb" font-weight="600" font-family="'Anton', sans-serif" fill-opacity="0.5">BATTLE FOR THE PACIFIC</text>
+  <text text-anchor="middle" x="99" y="15"  font-size="15" font-family="'Anton', sans-serif" font-weight="600" fill="url(#wave)" fill-opacity="1">BATTLE FOR THE PACIFIC</text>
 </svg>

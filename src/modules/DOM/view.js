@@ -16,6 +16,11 @@ const view = (() => {
   function initPlayButton() {
     const button = document.getElementById('play-now-button')
     button.addEventListener('click', loadSetup)
+
+    const nameInput = document.getElementById('name-input')
+    nameInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') loadSetup()
+    })
   }
 
   function loadSetup() {

@@ -1,3 +1,5 @@
+import bgAudioSrc from '../../assets/sounds/North_Sea_Vigil.mp3'
+
 const Sound = (() => {
   let audioCtx = null
   function getAudioCtx() {
@@ -130,7 +132,7 @@ const Sound = (() => {
   // LOAD BACKGROUND AUDIO ASYNCHRONOUSLY
   async function background() {
     try {
-      const audio = new Audio('../../assets/sounds/North_Sea_Vigil.mp3')
+      const audio = new Audio(bgAudioSrc)
       audio.loop = true
       await audio.play()
     } catch (err) {
