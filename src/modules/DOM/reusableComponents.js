@@ -81,7 +81,7 @@ const Component = (() => {
       id: 'github-button',
       className: 'github-button',
       textContent: 'GITHUB',
-      href: 'https://github.com/lovrozagar',
+      href: 'https://github.com/MOB-devin/Battleship-full',
       target: '_blank',
       rel: 'noopener noreferrer',
     })
