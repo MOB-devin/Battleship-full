@@ -1,4 +1,4 @@
-import bgAudioSrc from '../../assets/sounds/North_Sea_Vigil.mp3'
+import bgAudioSrc from '../../assets/sounds/final-waltz-matt-stewart-evans-main-version-42725-02-03.mp3'
 
 const Sound = (() => {
   let audioCtx = null
