@@ -68,11 +68,18 @@ img {
   height: -webkit-fill-available;
   text-align: center;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .app.pregame {
   @include flexColumnCenter;
   padding: 2rem;
+}
+
+.app.setup,
+.app.battle {
+  align-items: flex-start;
+  align-content: flex-start;
 }
 
 .app-setup,
