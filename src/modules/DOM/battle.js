@@ -44,7 +44,7 @@ const Battle = (() => {
   function createPlayerMap() {
     const map = helper.createMap('friendly')
 
-    map.appendChild(createMapTitle('FRIENDLY WATERS'))
+    map.appendChild(createMapTitle('AMERICAN FLEET'))
 
     return map
   }
@@ -52,7 +52,7 @@ const Battle = (() => {
   function createComputerMap() {
     const map = helper.createMap('enemy')
 
-    map.appendChild(createMapTitle('ENEMY WATERS'))
+    map.appendChild(createMapTitle('JAPANESE FLEET'))
 
     return map
   }
