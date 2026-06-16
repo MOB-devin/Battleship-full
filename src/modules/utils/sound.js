@@ -26,6 +26,7 @@ const Sound = (() => {
     try {
       const audio = new Audio(bgAudioSrc)
       audio.loop = true
+      audio.volume = 0.8
       await audio.play()
     } catch (err) {
       console.warn('Background audio failed to play:', err)
