@@ -1,6 +1,6 @@
 import Typed from 'typed.js'
-import agent from '../../assets/images/agent.png'
-import enemy from '../../assets/images/evilCaptain.png'
+import agent from '../../assets/images/USAAdmiral.png'
+import enemy from '../../assets/images/IJNAdmiral.png'
 import helper from './helper'
 import { SHIP_CONFIG } from '../utils/shipConfig'
 import { SHIP_IMAGES } from '../utils/shipImages'
