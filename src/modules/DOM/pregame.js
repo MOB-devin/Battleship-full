@@ -6,7 +6,7 @@ const pregame = (() => {
     const app = document.getElementById('app')
     app.classList.add('pregame')
 
-    helper.appendAll(app, [createPregameCard(), Component.createGitHubButton()])
+    helper.appendAll(app, [createPregameCard()])
   }
 
   function createPregameCard() {
@@ -16,6 +16,7 @@ const pregame = (() => {
       createTitle(),
       createNameForm(),
       createPlayNowButton(),
+      Component.createGitHubButton(),
     ])
 
     return section

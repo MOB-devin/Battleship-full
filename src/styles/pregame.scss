@@ -5,6 +5,7 @@
   @include flexColumnSpaceEvenly;
   width: 100%;
   max-width: 28.125rem;
+  max-height: 80vh;
   padding: $pregame-card-padding;
   border: 0.125rem solid transparent;
   border-radius: 1rem;
