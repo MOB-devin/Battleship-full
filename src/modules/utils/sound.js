@@ -1,4 +1,5 @@
 import bgAudioSrc from '../../assets/sounds/final-waltz-matt-stewart-evans-main-version-42725-02-03.mp3'
+import shotAudioSrc from '../../assets/sounds/cannon-blast-from-ship-epic-stock-media-1-00-04.mp3'
 
 const Sound = (() => {
   let audioCtx = null
@@ -125,7 +126,10 @@ const Sound = (() => {
     noise.stop(now + 1.2)
   }
 
-  function shot() { playNavalGunfire() }
+  function shot() {
+    const audio = new Audio(shotAudioSrc)
+    audio.play().catch(() => {})
+  }
   function hit() { playShipExplosion() }
   function miss() { playWaterSplash() }
 
