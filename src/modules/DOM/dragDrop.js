@@ -17,6 +17,7 @@ const DragDrop = (() => {
 
   let fieldQueue = []
   let touchMove = false
+  let lastHoveredIndex = -1
 
   function emptyFieldQueue() {
     fieldQueue = []
@@ -119,6 +120,7 @@ const DragDrop = (() => {
 
   function dragOverHandler(event, fieldContainer, index) {
     event.preventDefault()
+    lastHoveredIndex = index
     styleFieldsForDrop(fieldContainer, index)
   }
 
@@ -347,15 +349,23 @@ const DragDrop = (() => {
     if (ships.length !== 5) return
 
     button.classList.remove('disabled')
+    button.classList.add('enabled')
     button.removeEventListener('keydown', preventEnterDefault)
-    // button.
   }
 
   function preventEnterDefault(event) {
     if (event.key === 'Enter') event.preventDefault()
   }
 
-  return { initDraggableFields, preventEnterDefault }
+  function refreshHoverPreview() {
+    if (lastHoveredIndex < 0) return
+    const fieldContainer = document.getElementById('field-container-setup')
+    if (!fieldContainer) return
+    resetFieldStyling()
+    styleFieldsForDrop(fieldContainer, lastHoveredIndex)
+  }
+
+  return { initDraggableFields, preventEnterDefault, refreshHoverPreview }
 })()
 
 export default DragDrop
