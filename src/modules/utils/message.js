@@ -3,7 +3,7 @@ import Game from '../factories/game'
 const Message = (() => {
   const messages = {
     welcome: [
-      'All hands on deck, sailor',
+      'All hands on deck, Admiral',
       'Drag your fleet into formation.',
     ],
     battleStartPlayer: [
@@ -99,10 +99,9 @@ const Message = (() => {
   }
 
   function getBattleStartMessage() {
+    const name = Game.getState().getPlayer().getName()
     return [
-      `${Game.getState().getPlayer().getName()} ${
-        messages.battleStartPlayer[0]
-      }`,
+      `All hands on deck, Admiral ${name}. Let's give 'em hell!`,
     ]
   }
 

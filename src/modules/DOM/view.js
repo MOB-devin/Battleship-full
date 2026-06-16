@@ -34,7 +34,7 @@ const view = (() => {
 
   function setPlayerName() {
     const name = document.getElementById('name-input').value.toString().trim()
-    if (name) Game.getState().getPlayer().setName(`Captain ${name}`)
+    if (name) Game.getState().getPlayer().setName(name)
   }
 
   return { loadContent }
