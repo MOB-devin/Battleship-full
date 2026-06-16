@@ -148,7 +148,11 @@ const Sound = (() => {
     }
   }
 
-  return { shot, hit, miss, BackgroundOnFirstTouch }
+  function playBackground() {
+    background()
+  }
+
+  return { shot, hit, miss, BackgroundOnFirstTouch, playBackground }
 })()
 
 export default Sound

@@ -134,6 +134,7 @@ const DragDrop = (() => {
 
     fleet.loadFleet(fieldContainer)
     hideIfPlaced(isPlaced, shipOnDrag)
+    if (isPlaced) markPlacedCells(fieldContainer)
     resetFieldStyling()
     removePlacedShipsTabIndex()
   }
@@ -146,16 +147,17 @@ const DragDrop = (() => {
   function dropIfValid(x, y) {
     const map = Game.getState().getPlayer().getMap()
     const shipOnDrag = Game.getState().getPlayer().getMap().getShipOnDrag()
+    const length = Number(shipOnDrag.length)
 
     // RETURNS [BOOL, SHIP-NAME]
     if (map.getAxis() === 'X') {
       return [
-        map.placeX(Ship.createShip(shipOnDrag.name, shipOnDrag.length), [x, y]),
+        map.placeX(Ship.createShip(shipOnDrag.name, length), [x, y]),
         shipOnDrag.name,
       ]
     }
     return [
-      map.placeY(Ship.createShip(shipOnDrag.name, shipOnDrag.length), [x, y]),
+      map.placeY(Ship.createShip(shipOnDrag.name, length), [x, y]),
       shipOnDrag.name,
     ]
   }
@@ -210,6 +212,7 @@ const DragDrop = (() => {
       const [isPlaced, shipOnDrag] = dropIfValid(x, y)
 
       fleet.loadFleet(fieldContainer)
+      if (isPlaced) markPlacedCells(fieldContainer)
       resetFieldStyling()
       hideIfPlaced(isPlaced, shipOnDrag)
 
@@ -281,7 +284,12 @@ const DragDrop = (() => {
   function resetFieldStyling() {
     const fieldContainer = document.getElementById('field-container-setup')
     for (let i = 0; i < fieldQueue.length; i += 1) {
-      fieldContainer.children[fieldQueue[i]].className = 'field'
+      const child = fieldContainer.children[fieldQueue[i]]
+      if (child.classList.contains('placed')) {
+        child.className = 'field placed'
+      } else {
+        child.className = 'field'
+      }
     }
     emptyFieldQueue()
   }
@@ -295,13 +303,23 @@ const DragDrop = (() => {
     enableContinueButtonIfAllPlaced()
   }
 
+  function markPlacedCells(fieldContainer) {
+    const map = Game.getState().getPlayer().getMap()
+    const board = map.getBoard()
+    for (let i = 0; i < 100; i += 1) {
+      const [r, c] = helper.getCoordinatesFromIndex(i)
+      if (board[r][c] !== 'x') {
+        fieldContainer.children[i].classList.add('placed')
+      }
+    }
+  }
+
   function styleFieldsForDrop(parentNode, index) {
     const map = Game.getState().getPlayer().getMap()
     const board = map.getBoard()
     const axis = map.getAxis()
-    // const [x, y] = helper.getCoordinatesFromIndex(index)
     const shipOnDrag = map.getShipOnDrag()
-    let { length } = shipOnDrag
+    let length = Number(shipOnDrag.length)
     emptyFieldQueue()
 
     let isTaken = false

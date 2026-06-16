@@ -28,8 +28,8 @@ const view = (() => {
     helper.deleteAppContent()
     setup.loadSetupContent()
     DragDrop.initDraggableFields()
-    // UNMUTE SOUND ON IOS WITH 1S SILENCE SO THAT WEB AUDIO API CAN BE USED
-    Sound.BackgroundOnFirstTouch()
+    // START BACKGROUND MUSIC IMMEDIATELY (user already clicked)
+    Sound.playBackground()
   }
 
   function setPlayerName() {
