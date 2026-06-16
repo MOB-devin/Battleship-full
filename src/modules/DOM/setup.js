@@ -171,6 +171,7 @@ const setup = (() => {
       if (event.key === 'Shift' && !shiftHeld) {
         shiftHeld = true
         toggleAxis()
+        DragDrop.refreshHoverPreview()
       }
     })
 
@@ -178,6 +179,7 @@ const setup = (() => {
       if (event.key === 'Shift' && shiftHeld) {
         shiftHeld = false
         toggleAxis()
+        DragDrop.refreshHoverPreview()
       }
     })
   }
@@ -188,6 +190,7 @@ const setup = (() => {
     fieldContainer.addEventListener('contextmenu', (event) => {
       event.preventDefault()
       toggleAxis()
+      DragDrop.refreshHoverPreview()
     })
   }
 
