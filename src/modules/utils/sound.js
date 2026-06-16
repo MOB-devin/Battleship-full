@@ -1,4 +1,6 @@
 import bgAudioSrc from '../../assets/sounds/final-waltz-matt-stewart-evans-main-version-42725-02-03.mp3'
+import hitAudioSrc from '../../assets/sounds/hit.mp3'
+import missAudioSrc from '../../assets/sounds/miss.mp3'
 
 const Sound = (() => {
   let audioCtx = null
@@ -126,8 +128,14 @@ const Sound = (() => {
   }
 
   function shot() { playNavalGunfire() }
-  function hit() { playShipExplosion() }
-  function miss() { playWaterSplash() }
+  function hit() {
+    const audio = new Audio(hitAudioSrc)
+    audio.play().catch(() => {})
+  }
+  function miss() {
+    const audio = new Audio(missAudioSrc)
+    audio.play().catch(() => {})
+  }
 
   // LOAD BACKGROUND AUDIO ASYNCHRONOUSLY
   async function background() {
